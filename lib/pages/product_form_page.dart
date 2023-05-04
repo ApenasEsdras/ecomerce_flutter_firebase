@@ -1,3 +1,4 @@
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop/models/product.dart';
@@ -62,13 +63,40 @@ class _ProductFormPageState extends State<ProductFormPage> {
     setState(() {});
   }
 
-  bool isValidImageUrl(String url) {
-    bool isValidUrl = Uri.tryParse(url)?.hasAbsolutePath ?? false;
-    bool endsWithFile = url.toLowerCase().endsWith('.png') ||
-        url.toLowerCase().endsWith('.jpg') ||
-        url.toLowerCase().endsWith('.jpeg');
-    return isValidUrl && endsWithFile;
+  // bool isValidImageUrl(String url) {
+  //   bool isValidUrl = Uri.tryParse(url)?.hasAbsolutePath ?? false;
+  //   bool endsWithFile = url.toLowerCase().endsWith('.png') ||
+  //       url.toLowerCase().endsWith('.jpg') ||
+  //       url.toLowerCase().endsWith('.jpeg');
+  //   return isValidUrl && endsWithFile;
+  // }
+
+
+Future<bool> isValidImageUrl(String url) async {
+  Uri? uri = Uri.tryParse(url);
+  if (uri == null) {
+    return false;
   }
+
+  // Check if the URL ends with a known image file extension
+  List<String> imageExtensions = ['.png', '.jpg', '.jpeg', '.gif', '.bmp', '.webp'];
+  bool hasImageExtension = imageExtensions.any((ext) => uri.path.toLowerCase().endsWith(ext));
+  if (!hasImageExtension) {
+    return false;
+  }
+
+  // Check if the URL returns an image
+  http.Response response = await http.head(uri);
+  if (response.statusCode != 200) {
+    return false;
+  }
+  String? contentType = response.headers['content-type'];
+  if (contentType == null || !contentType.startsWith('image/')) {
+    return false;
+  }
+
+  return true;
+}
 
   Future<void> _submitForm() async {
     final isValid = _formKey.currentState?.validate() ?? false;
@@ -87,6 +115,7 @@ class _ProductFormPageState extends State<ProductFormPage> {
         listen: false,
       ).saveProduct(_formData);
 
+      // ignore: use_build_context_synchronously
       Navigator.of(context).pop();
     } catch (error) {
       await showDialog<void>(
@@ -212,9 +241,9 @@ class _ProductFormPageState extends State<ProductFormPage> {
                             validator: (_imageUrl) {
                               final imageUrl = _imageUrl ?? '';
 
-                              if (!isValidImageUrl(imageUrl)) {
-                                return 'Informe uma Url válida!';
-                              }
+                              // if (!isValidImageUrl(imageUrl)) {
+                              //   return 'Informe uma Url válida!';
+                              // }
 
                               return null;
                             },
