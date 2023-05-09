@@ -1,0 +1,4 @@
+#Sat May 06 17:10:49 GFT 2023
+base.0=C\:\\PROGRAMACAO\\Futter\\COD3R\\ecomerce_flutter_firebase\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
+renamed.0=classes.dex
+path.0=classes.dex

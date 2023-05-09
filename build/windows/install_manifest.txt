@@ -1,0 +1,14 @@
+C:/PROGRAMACAO/Futter/COD3R/ecomerce_flutter_firebase/build/windows/runner/Debug/data/icudtl.dat
+C:/PROGRAMACAO/Futter/COD3R/ecomerce_flutter_firebase/build/windows/runner/Debug/flutter_windows.dll
+C:/PROGRAMACAO/Futter/COD3R/ecomerce_flutter_firebase/build/windows/runner/Debug/data/flutter_assets/AssetManifest.bin
+C:/PROGRAMACAO/Futter/COD3R/ecomerce_flutter_firebase/build/windows/runner/Debug/data/flutter_assets/AssetManifest.json
+C:/PROGRAMACAO/Futter/COD3R/ecomerce_flutter_firebase/build/windows/runner/Debug/data/flutter_assets/assets/fonts/Anton-Regular.ttf
+C:/PROGRAMACAO/Futter/COD3R/ecomerce_flutter_firebase/build/windows/runner/Debug/data/flutter_assets/assets/fonts/Lato-Bold.ttf
+C:/PROGRAMACAO/Futter/COD3R/ecomerce_flutter_firebase/build/windows/runner/Debug/data/flutter_assets/assets/fonts/Lato-Regular.ttf
+C:/PROGRAMACAO/Futter/COD3R/ecomerce_flutter_firebase/build/windows/runner/Debug/data/flutter_assets/FontManifest.json
+C:/PROGRAMACAO/Futter/COD3R/ecomerce_flutter_firebase/build/windows/runner/Debug/data/flutter_assets/fonts/MaterialIcons-Regular.otf
+C:/PROGRAMACAO/Futter/COD3R/ecomerce_flutter_firebase/build/windows/runner/Debug/data/flutter_assets/kernel_blob.bin
+C:/PROGRAMACAO/Futter/COD3R/ecomerce_flutter_firebase/build/windows/runner/Debug/data/flutter_assets/NOTICES
+C:/PROGRAMACAO/Futter/COD3R/ecomerce_flutter_firebase/build/windows/runner/Debug/data/flutter_assets/NOTICES.Z
+C:/PROGRAMACAO/Futter/COD3R/ecomerce_flutter_firebase/build/windows/runner/Debug/data/flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf
+C:/PROGRAMACAO/Futter/COD3R/ecomerce_flutter_firebase/build/windows/runner/Debug/data/flutter_assets/shaders/ink_sparkle.frag

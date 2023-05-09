@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\PROGRAMACAO\Futter\COD3R\ecomerce_flutter_firebase\windows\flutter\ephemeral\cpp_client_wrapper\core_implementations.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\PROGRAMACAO\Futter\COD3R\ecomerce_flutter_firebase\windows\flutter\ephemeral\cpp_client_wrapper\standard_codec.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\PROGRAMACAO\Futter\COD3R\ecomerce_flutter_firebase\windows\flutter\ephemeral\cpp_client_wrapper\flutter_engine.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\PROGRAMACAO\Futter\COD3R\ecomerce_flutter_firebase\windows\flutter\ephemeral\cpp_client_wrapper\flutter_view_controller.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\PROGRAMACAO\Futter\COD3R\ecomerce_flutter_firebase\windows\flutter\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{AEB27A71-211B-36D0-88C0-878B1337E97B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{D3111FE7-DBE8-35B2-BB83-10CC5A2445BD}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

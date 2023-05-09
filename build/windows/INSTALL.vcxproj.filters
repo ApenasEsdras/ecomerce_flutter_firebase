@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\PROGRAMACAO\Futter\COD3R\ecomerce_flutter_firebase\build\windows\CMakeFiles\d04a4f31e764629874d71a24d93406c1\INSTALL_force.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{AEB27A71-211B-36D0-88C0-878B1337E97B}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
