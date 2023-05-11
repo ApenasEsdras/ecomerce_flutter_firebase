@@ -7,7 +7,10 @@ import 'package:shop/models/order.dart';
 import 'package:shop/utils/constants.dart';
 
 class OrderList with ChangeNotifier {
-  final List<Order> _items = [];
+  String _tokon;
+  List<Order> _items = [];
+
+  OrderList(this._tokon, this._items);
 
   List<Order> get items {
     return [..._items];
@@ -18,15 +21,16 @@ class OrderList with ChangeNotifier {
   }
 
   Future<void> loadOrders() async {
-    _items.clear();
-
+    // funcionara dentro dos items locais (somente na pagina "meus pedidos")
+    List<Order> items = [];
+    // retorna valores
     final response = await http.get(
-      Uri.parse('${Constants.orderBaseUrl}.json'),
+      Uri.parse('${Constants.orderBaseUrl}.json?auth=$_tokon'),
     );
     if (response.body == 'null') return;
     Map<String, dynamic> data = jsonDecode(response.body);
     data.forEach((orderId, orderData) {
-      _items.add(
+      items.add(
         Order(
           id: orderId,
           date: DateTime.parse(orderData['date']),
@@ -43,6 +47,8 @@ class OrderList with ChangeNotifier {
         ),
       );
     });
+    // Reverte a lista para que os últimos pedidos adicionados apareçam primeiro
+    _items = items.reversed.toList();
     notifyListeners();
   }
 
@@ -50,11 +56,14 @@ class OrderList with ChangeNotifier {
     final date = DateTime.now();
 
     final response = await http.post(
-      Uri.parse('${Constants.orderBaseUrl}.json'),
+      // esse .json cria uma arquivo json valido p/ o firebase
+      Uri.parse('${Constants.orderBaseUrl}.json?auth=$_tokon'),
+// converte o input(string qualuquer) para json
       body: jsonEncode(
         {
           'total': cart.totalAmount,
           'date': date.toIso8601String(),
+          // para trazer os itens presiso mapear antes
           'products': cart.items.values
               .map(
                 (cartItem) => {
@@ -69,7 +78,7 @@ class OrderList with ChangeNotifier {
         },
       ),
     );
-
+    // obtendo o ID do produtos
     final id = jsonDecode(response.body)['name'];
     _items.insert(
       0,

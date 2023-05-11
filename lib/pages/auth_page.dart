@@ -1,16 +1,15 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-
-import '../components/auph_form.dart';
+import 'package:shop/components/auth_form.dart';
 
 class AuthPage extends StatelessWidget {
-  const AuthPage({super.key});
+  const AuthPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // Stack == permite sobrepor elementos
+      // Stack ==> permite sobrepor elementos
       body: Stack(
         children: [
           Container(
@@ -37,6 +36,10 @@ class AuthPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
+                  // margin entre form e titulo
+                  margin: const EdgeInsets.only(
+                    bottom: 25,
+                  ),
                   padding: const EdgeInsets.symmetric(
                     vertical: 10,
                     horizontal: 70,
@@ -55,10 +58,10 @@ class AuthPage extends StatelessWidget {
                     ],
                   ),
                   child: const Text(
-                    'Minha Loja',
+                    'Forças de venda',
                     // para definir estilo de fonte usamos o TextStyle
                     style: TextStyle(
-                      fontSize: 45,
+                      fontSize: 30,
                       fontFamily: 'Anton',
                       color: Colors.white,
                     ),
@@ -74,6 +77,8 @@ class AuthPage extends StatelessWidget {
   }
 }
 // ++++++++++++++++++++++++++++++++++++ //
+
+// apenas um texte...
 
 // Exemplo usado para explicar o cascade operator
 // void main() {

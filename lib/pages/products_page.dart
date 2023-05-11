@@ -8,6 +8,7 @@ import 'package:shop/utils/app_routes.dart';
 class ProductsPage extends StatelessWidget {
   const ProductsPage({Key? key}) : super(key: key);
 
+  // careregar produtos no aba de add
   Future<void> _refreshProducts(BuildContext context) {
     return Provider.of<ProductList>(
       context,

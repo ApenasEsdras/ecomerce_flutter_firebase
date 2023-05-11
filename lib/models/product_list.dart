@@ -7,21 +7,39 @@ import 'package:shop/models/product.dart';
 import 'package:shop/utils/constants.dart';
 
 class ProductList with ChangeNotifier {
-  final List<Product> _items = [];
+  // responsavel por fazer a ligacao entre entre os providers e levar dados
+  final String _token;
+
+// cria lista de item vazio
+  List<Product> _items = [];
 
   List<Product> get items => [..._items];
   List<Product> get favoriteItems =>
       _items.where((prod) => prod.isFavorite).toList();
 
+// instancia do tokon
+  ProductList(this._token, this._items);
+
   int get itemsCount {
     return _items.length;
   }
 
+// sincroniza produtos do fire base
   Future<void> loadProducts() async {
+    // linpar lista
     _items.clear();
-
+    // retorna valores do furebase
     final response = await http.get(
-      Uri.parse('${Constants.productBaseUrl}.json'),
+      // URI (Uniform Resource Identifier) faz chamado e retornar um objeto Uri que contém informações sobre a URI fornecida.
+      //  Uri.parse()
+      // 
+      // variavel contendo chaves de acesso ao firebase
+      // ('${Constants.productBaseUrl}
+      // 
+      // tras chve to token gerado automaticamente 
+      // .json?auth=$_token')
+
+      Uri.parse('${Constants.productBaseUrl}.json?auth=$_token'),
     );
     if (response.body == 'null') return;
     Map<String, dynamic> data = jsonDecode(response.body);
@@ -40,6 +58,7 @@ class ProductList with ChangeNotifier {
     notifyListeners();
   }
 
+  // sauva alteracoes
   Future<void> saveProduct(Map<String, Object> data) {
     bool hasId = data['id'] != null;
 
@@ -58,9 +77,11 @@ class ProductList with ChangeNotifier {
     }
   }
 
+// retorno posterior
   Future<void> addProduct(Product product) async {
     final response = await http.post(
-      Uri.parse('${Constants.productBaseUrl}.json'),
+      Uri.parse('${Constants.productBaseUrl}.json?auth=$_token'),
+// enum primario com tipos de dados que presiso.
       body: jsonEncode(
         {
           "name": product.name,
@@ -75,6 +96,7 @@ class ProductList with ChangeNotifier {
     final id = jsonDecode(response.body)['name'];
     _items.add(Product(
       id: id,
+      // consumindo o product (dados do firebase)
       name: product.name,
       description: product.description,
       price: product.price,
@@ -85,11 +107,15 @@ class ProductList with ChangeNotifier {
   }
 
   Future<void> updateProduct(Product product) async {
+    // obtem o index de produto
     int index = _items.indexWhere((p) => p.id == product.id);
 
     if (index >= 0) {
+      // espera ir no servidor e voltar com as informacoes requeridas
       await http.patch(
-        Uri.parse('${Constants.productBaseUrl}/${product.id}.json'),
+        // procura o id do produto especifico
+        Uri.parse(
+            '${Constants.productBaseUrl}/${product.id}.json?auth=$_token'),
         body: jsonEncode(
           {
             "name": product.name,
@@ -99,7 +125,7 @@ class ProductList with ChangeNotifier {
           },
         ),
       );
-
+      // autera o registro local
       _items[index] = product;
       notifyListeners();
     }
@@ -108,13 +134,15 @@ class ProductList with ChangeNotifier {
   Future<void> removeProduct(Product product) async {
     int index = _items.indexWhere((p) => p.id == product.id);
 
+    // verifica se o item realmente faz parte da lista
     if (index >= 0) {
       final product = _items[index];
       _items.remove(product);
       notifyListeners();
 
       final response = await http.delete(
-        Uri.parse('${Constants.productBaseUrl}/${product.id}.json'),
+        Uri.parse(
+            '${Constants.productBaseUrl}/${product.id}.json?auth=$_token'),
       );
 
       if (response.statusCode >= 400) {

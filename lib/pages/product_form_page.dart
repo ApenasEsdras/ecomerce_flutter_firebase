@@ -71,32 +71,39 @@ class _ProductFormPageState extends State<ProductFormPage> {
   //   return isValidUrl && endsWithFile;
   // }
 
+  Future<bool> isValidImageUrl(String url) async {
+    Uri? uri = Uri.tryParse(url);
+    if (uri == null) {
+      return false;
+    }
 
-Future<bool> isValidImageUrl(String url) async {
-  Uri? uri = Uri.tryParse(url);
-  if (uri == null) {
-    return false;
-  }
+    // Check if the URL ends with a known image file extension
+    List<String> imageExtensions = [
+      '.png',
+      '.jpg',
+      '.jpeg',
+      '.gif',
+      '.bmp',
+      '.webp'
+    ];
+    bool hasImageExtension =
+        imageExtensions.any((ext) => uri.path.toLowerCase().endsWith(ext));
+    if (!hasImageExtension) {
+      return false;
+    }
 
-  // Check if the URL ends with a known image file extension
-  List<String> imageExtensions = ['.png', '.jpg', '.jpeg', '.gif', '.bmp', '.webp'];
-  bool hasImageExtension = imageExtensions.any((ext) => uri.path.toLowerCase().endsWith(ext));
-  if (!hasImageExtension) {
-    return false;
-  }
+    // Check if the URL returns an image
+    http.Response response = await http.head(uri);
+    if (response.statusCode != 200) {
+      return false;
+    }
+    String? contentType = response.headers['content-type'];
+    if (contentType == null || !contentType.startsWith('image/')) {
+      return false;
+    }
 
-  // Check if the URL returns an image
-  http.Response response = await http.head(uri);
-  if (response.statusCode != 200) {
-    return false;
+    return true;
   }
-  String? contentType = response.headers['content-type'];
-  if (contentType == null || !contentType.startsWith('image/')) {
-    return false;
-  }
-
-  return true;
-}
 
   Future<void> _submitForm() async {
     final isValid = _formKey.currentState?.validate() ?? false;
@@ -166,6 +173,7 @@ Future<bool> isValidImageUrl(String url) async {
                         FocusScope.of(context).requestFocus(_priceFocus);
                       },
                       onSaved: (name) => _formData['name'] = name ?? '',
+                      // ignore: no_leading_underscores_for_local_identifiers
                       validator: (_name) {
                         final name = _name ?? '';
                         if (name.trim().isEmpty) {
@@ -191,6 +199,7 @@ Future<bool> isValidImageUrl(String url) async {
                       },
                       onSaved: (price) =>
                           _formData['price'] = double.parse(price ?? '0'),
+                      // ignore: no_leading_underscores_for_local_identifiers
                       validator: (_price) {
                         final priceString = _price ?? '';
                         final price = double.tryParse(priceString) ?? -1;
@@ -210,6 +219,7 @@ Future<bool> isValidImageUrl(String url) async {
                       maxLines: 3,
                       onSaved: (description) =>
                           _formData['description'] = description ?? '',
+                      // ignore: no_leading_underscores_for_local_identifiers
                       validator: (_description) {
                         final description = _description ?? '';
 
@@ -238,7 +248,9 @@ Future<bool> isValidImageUrl(String url) async {
                             onFieldSubmitted: (_) => _submitForm(),
                             onSaved: (imageUrl) =>
                                 _formData['imageUrl'] = imageUrl ?? '',
+                            // ignore: no_leading_underscores_for_local_identifiers
                             validator: (_imageUrl) {
+                              // ignore: unused_local_variable
                               final imageUrl = _imageUrl ?? '';
 
                               // if (!isValidImageUrl(imageUrl)) {

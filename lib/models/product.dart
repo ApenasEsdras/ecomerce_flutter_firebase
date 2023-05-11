@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shop/utils/constants.dart';
 
+// enum primario com tipos de dados que presiso.
 class Product with ChangeNotifier {
   final String id;
   final String name;
@@ -21,17 +22,18 @@ class Product with ChangeNotifier {
     this.isFavorite = false,
   });
 
+// atualizar favoritos
   void _toggleFavorite() {
     isFavorite = !isFavorite;
     notifyListeners();
   }
 
-  Future<void> toggleFavorite() async {
+  Future<void> toggleFavorite(String token) async {
     try {
       _toggleFavorite();
 
       final response = await http.patch(
-        Uri.parse('${Constants.productBaseUrl}/$id.json'),
+        Uri.parse('${Constants.productBaseUrl}/$id.json?auth=$token'),
         body: jsonEncode({"isFavorite": isFavorite}),
       );
 
@@ -39,6 +41,7 @@ class Product with ChangeNotifier {
         _toggleFavorite();
       }
     } catch (_) {
+      // retona ao inicio
       _toggleFavorite();
     }
   }

@@ -37,6 +37,7 @@ class ProductItem extends StatelessWidget {
             ),
             IconButton(
               icon: const Icon(Icons.delete),
+              // ignore: deprecated_member_use
               color: Theme.of(context).errorColor,
               onPressed: () {
                 showDialog<bool>(

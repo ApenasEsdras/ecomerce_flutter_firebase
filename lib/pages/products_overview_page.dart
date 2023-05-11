@@ -22,6 +22,7 @@ class _ProductsOverviewPageState extends State<ProductsOverviewPage> {
   bool _showFavoriteOnly = false;
   bool _isLoading = true;
 
+// sincroniza produtos do fire base
   @override
   void initState() {
     super.initState();
